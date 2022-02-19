@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //Going to use Learn as the main app component for now
 //import App from './App';
-import Learn from './Learn';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+import {BrowserRouter as Router} from 'react-router-dom';
+import App from './App';
+
+
 ReactDOM.render(
   <React.StrictMode>
-    <Learn />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
 
