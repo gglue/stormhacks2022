@@ -3,8 +3,8 @@
 function Login(){
 
     return (
-        <div className="Login">
-        </div>
+        <nav className="login">
+        </nav>
     )
 }
 

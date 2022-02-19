@@ -3,8 +3,8 @@
 function Quiz(){
 
     return (
-        <div className="Quiz">
-        </div>
+        <nav className="quiz">
+        </nav>
     )
 }
 

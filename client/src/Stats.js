@@ -3,8 +3,8 @@
 function Stats(){
 
     return (
-        <div className="Stats">
-        </div>
+        <nav className="stats">
+        </nav>
     )
 }
 

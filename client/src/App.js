@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import {Route, Routes, useLocation} from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 import Home from './Home';
 import Learn from './Learn';
 import Quiz from './Quiz';
@@ -14,22 +15,14 @@ function App(){
   return (
     <div className="App">
       <div className="content">
+        <NavigationBar />
         <Routes location = {location} key = {location.key}>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path ="/learn">
-            <Learn />
-          </Route>
-          <Route path ="/quiz">
-            <Quiz />
-          </Route>
-          <Route path = "/stats">
-            <Stats />
-          </Route>
-          <Route path = "/login">
-            <Login />
-          </Route>
+          <Route exact path="/" element ={<Home />} />
+          <Route path ="/learn" element ={<Learn />} />
+          <Route path ="/quiz" element ={<Quiz />} />
+          <Route path = "/stats" element ={<Stats />} />
+          <Route path = "/login" element ={<Login />} />
+            
         </Routes>
       </div>
     </div>
