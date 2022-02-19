@@ -1,5 +1,11 @@
 import React, { useEffect, useState} from 'react';
-import {Route, Switch, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
+import Home from './Home';
+import Learn from './Learn';
+import Quiz from './Quiz';
+import Stats from './Stats';
+import Login from './Login';
+
 function App(){
 
   /*const [backend, setBackEnd] = useState([{}]); */
@@ -8,7 +14,7 @@ function App(){
   return (
     <div className="App">
       <div className="content">
-        <Switch location = {location} key = {location.key}>
+        <Routes location = {location} key = {location.key}>
           <Route exact path="/">
             <Home />
           </Route>
@@ -24,7 +30,7 @@ function App(){
           <Route path = "/login">
             <Login />
           </Route>
-        </Switch>
+        </Routes>
       </div>
     </div>
   )
