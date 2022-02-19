@@ -1,12 +1,12 @@
-const {Router} = require("express")
-const authServices = require("../services/authServices.js")
+const express = require("express")
+const authServices = require("../services/authServices")
 
-const router = Router();
+const router = express.Router();
 
 // TODO: Implement auth endpoints
 
-router.post("/login", authServices.login)
-router.post("/register", authServices.register)
-router.post("/logout", authServices.logout)
+router.post("/api/login", authServices.login)
+router.post("/api/register", authServices.register)
+router.post("/api/logout", authServices.logout)
 
 module.exports = router
