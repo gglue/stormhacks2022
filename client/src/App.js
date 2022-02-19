@@ -21,32 +21,11 @@ function App(){
           <Route path ="/learn" element ={<Learn />} />
           <Route path ="/quiz" element ={<Quiz />} />
           <Route path = "/stats" element ={<Stats />} />
-          <Route path = "/login" element ={<Login />} />
-            
+          <Route path = "/login" element ={<Login />} /> 
         </Routes>
       </div>
     </div>
   )
 }
 
-  /*useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackEnd(data)
-      }
-    )
-  }, [])
-
-  return (
-    <div>
-      {(typeof backend.message === 'undefined') ? (
-        <p>Loading</p>
-      ): (backend.message.map((message, i) => (<p key={i}>{message}</p>))
-      )}
-    </div>
-  )
-}
-*/
 export default App
