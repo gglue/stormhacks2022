@@ -8,7 +8,7 @@ Website Colour Scheme
 */
 
 body {
-    background-color: #85DCBA;
+    background-color: #85DCBA !important;
 }
 
 .topHeader {
@@ -22,6 +22,7 @@ body {
 
 #chart-img {
     background-color: transparent;
+    margin-bottom: 1em;
 }
 
 #dot-img {
@@ -32,6 +33,28 @@ body {
     margin-right: auto;
 }
 
-#dot-content {
+#dash-img {
+    width: 5em;
+    display: block;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dot-content, #dash-content {
     text-align: center;
+    margin-top: 1em;
+}
+
+#example, #space {
+    font-size: 5em;
+}
+
+.spoiler {
+    color: black;
+    background-color: black;
+}
+
+.spoiler:hover {
+    color: white;
 }
