@@ -14,3 +14,10 @@ Statistics that show the user's total quizzes, correct questions, answers, etc. 
 
 # Log in and Registration
 A Login and Registration page that allows the user to access his stats and quiz when logged in. 
+
+# How to run it
+1. Clone the repository
+2. Run "npm install" in both the server and client folder 
+3. In server folder, run "npm run dev" 
+4. In client folder, run "npm start"
+5. Go to http://localhost:3000
