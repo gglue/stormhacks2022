@@ -78,6 +78,14 @@ body {
     max-width: 30em;
 }
 
-#quizBtn {
+#quizBtn, #quizTotal {
     margin-top: 1em;
+}
+
+#morsebot {
+    z-index: -10;
+}
+
+.totalStats h2 {
+    padding: 1em;
 }

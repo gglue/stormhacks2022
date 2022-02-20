@@ -1,4 +1,4 @@
-Stormhacks 2022
+# stormhacks2022
 
 # LearnMorseCode
 Similar to Duolinguo being used as a tool to learn languages, LearnMorseCode is a website used to help teach people about Morse Code in a similar fashion. It even has it's own mascot called "ETE".

@@ -2,6 +2,7 @@ import './App.css';
 import chart from './images/morse-chart_grande2.png';
 import dot from './images/morse_dot.png';
 import dash from './images/morse_dash.png';
+import morsebot from './images/morsebot3.png';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -20,13 +21,21 @@ function Learn(){
         sound.play()
     }
 
+    //                        <img src={morsebot} id="morsebot" alt="morsebot"></img>
     return (
         <div className="Learn">
             <Container>
-                <div className="topHeader">
-                    <h1 id="title">How do I use Morse Code?<br></br><small>.... --- .-- / -.. --- / .. / ..- ... . / -- --- .-. ... . / -.-. --- -.. . ..--..</small></h1>
-                    <img src={chart} id="chart-img" alt="chart"></img>
-                </div>
+                <Row className="text-center">
+                    <div className="topHeader">
+                        <h1 id="title">How do I use Morse Code?<br></br><small>.... --- .-- / -.. --- / .. / ..- ... . / -- --- .-. ... . / -.-. --- -.. . ..--..</small></h1>
+                    </div>
+                    <Col sm={6}>
+                        <img src={morsebot} id="morsebot" alt="morsebot"></img>
+                    </Col>
+                    <Col sm={6}>
+                        <img src={chart} id="chart-img" alt="chart"></img>
+                    </Col>
+                </Row>
             </Container>
             
             <Container>
