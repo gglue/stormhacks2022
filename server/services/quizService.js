@@ -17,7 +17,7 @@ module.exports.getQuiz = async (req, res) => {
 }
 
 module.exports.porfileQuizCorrectIncrement = async (req, res) => {
-    console.log("Adding 1 to the quiz")
+    console.log("Adding 1 to the win")
     
     try {
         let profile = await Profile.findOne({user: req.user.user})
@@ -36,7 +36,7 @@ module.exports.porfileQuizCorrectIncrement = async (req, res) => {
 }
 
 module.exports.porfileQuizIncorrectIncrement = async (req, res) => {
-    console.log("Adding 1 to the quiz")
+    console.log("Adding 1 to the lost")
     
     try {
         let profile = await Profile.findOne({user: req.user.user})
@@ -55,7 +55,7 @@ module.exports.porfileQuizIncorrectIncrement = async (req, res) => {
 }
 
 module.exports.porfileQuizQuizIncrement = async (req, res) => {
-    console.log("Adding 1 to the quiz")
+    console.log("Adding 1 to the total")
     
     try {
         let profile = await Profile.findOne({user: req.user.user})

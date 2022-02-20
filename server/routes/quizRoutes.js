@@ -4,7 +4,7 @@ const cookieServices = require("../services/cookieServices")
 
 const router = express.Router();
 
-router.get("/api/quiz", quizService.getQuiz)
+router.get("/api/quiz", cookieServices.authorization, quizService.getQuiz)
 router.post("/api/quiz/correct",cookieServices.authorization, quizService.porfileQuizCorrectIncrement)
 router.post("/api/quiz/wrong", cookieServices.authorization, quizService.porfileQuizIncorrectIncrement)
 router.post("/api/quiz/finish", cookieServices.authorization, quizService.porfileQuizQuizIncrement)

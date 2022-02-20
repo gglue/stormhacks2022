@@ -12,9 +12,11 @@ function Stats(){
         totalIncorrect:0
     })
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         function getData() {
-            axios("http://localhost:3001/api/profile", {
+            axios("http://localhost:5000/api/profile", {
                 method: "get",
                 withCredentials: true
             }).then(result => {
@@ -25,6 +27,7 @@ function Stats(){
                         totalIncorrect: result.data.incorrect,
                         totalQuestions: result.data.incorrect + result.data.correct})
                 }
+                setLoading(true);
             }).catch(error => {
                 console.log(error)
             })
@@ -32,16 +35,21 @@ function Stats(){
         getData();
     },[])
 
+    function makeStats(){
+        return(
+            <div className="totalStats">
+                <h2 id="quizTotal">Total Quizzes completed: {state.quizTotal}:</h2>
+                <h2 id="totalQuestions">Total Questions Answered: {state.totalQuestions}</h2>
+                <h2 id="totalCorrect">Total Correct: {state.totalCorrect}</h2>
+                <h2 id="totalIncorrect">Total Incorrect: {state.totalIncorrect}</h2>
+            </div>
+        )
+    }
     return (
         <nav className="stats">
             <Container>
                 <Row className="text-center">
-                    <div className="totalStats">
-                        <h2 id="quizTotal">Total Quizzes done: {state.quizTotal}:</h2>
-                        <h2 id="totalQuestions">Total Questions Answered: {state.totalQuestions}</h2>
-                        <h2 id="totalCorrect">Total Correct: {state.totalCorrect}</h2>
-                        <h2 id="totalIncorrect">Total Incorrect: {state.totalIncorrect}</h2>
-                    </div>
+                {loading ? makeStats() : <div>Please login to see your stats :)</div>}
                 </Row>
             </Container>
 

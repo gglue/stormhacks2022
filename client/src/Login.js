@@ -27,7 +27,7 @@ function Login() {
 
     function login(value) {
         value.preventDefault()
-        axios.post("http://localhost:3001/api/login",
+        axios.post("http://localhost:5000/api/login",
         {
             "email" : username,
             "password": password
@@ -46,7 +46,7 @@ function Login() {
 
         console.log(regEmail)
         console.log(regPassword)
-        axios.post("http://localhost:3001/api/register",
+        axios.post("http://localhost:5000/api/register",
         {
             "email" : regEmail,
             "password": regPassword

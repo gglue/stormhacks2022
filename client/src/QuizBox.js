@@ -29,13 +29,16 @@ function QuizBox(){
         if (answer === questionList[questionNumber].answer) {
             setCorrect(correct+1);
             setJudge("You are correct!");
+            increaseWin();
         }
         else {
             setJudge(`Incorrect, the right answer is ${questionList[questionNumber].answer}`);
+            increaseLose();
         }
         setNumber(questionNumber+1);
         if (questionNumber === 10) {
             setFinished(true);
+            increaseTotal();
         }
         let inputField = document.getElementById("answerHere");
         inputField.value = '';
@@ -176,35 +179,51 @@ function QuizBox(){
             })
         console.log(questionList);
     }
+
+    function increaseTotal(){
+        fetch('/api/quiz/finish', {body: "hi", method: "POST"})
+        .then(response => console.log(response));
+    }
+    
+    function increaseLose(){
+        fetch('/api/quiz/wrong', {body: "hi", method: "POST"})
+        .then(response => console.log(response));
+    }
+
+    function increaseWin(){
+        fetch('/api/quiz/correct', {body: "hi", method: "POST"})
+        .then(response => console.log(response));
+    }
+
     useEffect(() => {
-        getWordBank();
+        getWordBank();;
     }, []);
 
     function generateCard(){
         return(<Card className ="bg-transparent">
             <Card.Body>
-                <Card.Title className = "text-center"><h2> {finished ? <div>Congratulations!</div> : <div>Question {questionNumber}</div>}</h2></Card.Title>
+                <Card.Title><h2> {finished ? <div>Congratulations!</div> : <div>Question {questionNumber}</div>}</h2></Card.Title>
                     {questionList[questionNumber].type ? <Card.Text>Translate this sentence into Morse code! (Use . and -)</Card.Text> : <Card.Text>Translate this morse code to English! </Card.Text>}
-                    <Card.Text className = "text-center">{questionList[questionNumber].question}</Card.Text>
+                    <Card.Text>{questionList[questionNumber].question}</Card.Text>
                     <Form onSubmit={e => {e.preventDefault();}}>
                         <Form.Control id="answerHere" type="input" disabled={finished} onChange={(event) => setAnswer(event.target.value)} placeholder="Type answer here."/>
                     </Form>
             </Card.Body>
-            <div className = "text-center">
+            <div>
                 <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
             </div>
-            <Card.Text className = "text-center"> {judgement}</Card.Text>
-            <Card.Text className = "text-center"> {finished ? <div>You got {correct} out of 10 questions right! <br></br> Your stats have been saved.</div> : null}</Card.Text>
+            <Card.Text> {judgement}</Card.Text>
+            <Card.Text> {finished ? <div>You got {correct} out of 10 questions right! <br></br> Your stats have been saved.</div> : null}</Card.Text>
         </Card>)
     }
 
     return(
         <Container>
-            <Row className = "justify-content-center">
+            <Row className = "justify-content-center text-center">
                 <Col xs={12} md={5} className = "my-5">
                     {loading ?
                         generateCard()
-                        : <div>Loading</div>}
+                        : <div>Please login to try the quiz :)</div>}
                 </Col>
             </Row>
         </Container>
