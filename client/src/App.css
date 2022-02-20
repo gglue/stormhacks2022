@@ -77,3 +77,7 @@ body {
     margin: 0 auto;
     max-width: 30em;
 }
+
+#quizBtn {
+    margin-top: 1em;
+}

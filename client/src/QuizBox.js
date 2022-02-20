@@ -90,7 +90,7 @@ function QuizBox(){
                                 <Card.Text>{questionList[questionNumber - 1].question}</Card.Text>
                                 <Form>
                                     <Form.Control type="input" disabled={finished} onChange={(event) => setAnswer(event.target.value)} placeholder="Type answer here."/>
-                                    <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
+                                    <Button id="quizBtn" onClick={checkAnswer} disabled={finished}>Submit</Button>
                                 </Form>
                         </Card.Body>
                     </Card>
