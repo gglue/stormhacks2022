@@ -22,27 +22,25 @@ const upload = multer({storage: fileStorageEngine});
 
 
 app.post("/transcribe", upload.single("file"), (req, res) => {
-    console.log(req.file.buffer);
-    fs.writeFileSync("./audio/test.wav", req.file.buffer)
-    
+    console.log(req.fileFile);
     const params = {
         headers: {
           "authorization": process.env.ASSEMBLY_API,
           "Transfer-Encoding": "chunked"
         },
-        body: audioFile,
+        body: req.file,
         method: 'POST'
       };
+    
     fetch(url, params)
         .then(response => response.json())
         .then(data => {
-            console.log(`URL: ${data['upload_url']}`)
+            res.send(`${data['upload_url']}`);
         })
         .catch((error) => {
             console.error(`Error: ${error}`);
         })
     
-    res.send("Hello world");
 });
 
 app.listen(5000);

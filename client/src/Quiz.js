@@ -2,6 +2,7 @@ import {Container, Button} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.css";
 import { useReactMediaRecorder } from "react-media-recorder";
 import {useEffect, useState} from 'react';
+import QuizBox from './QuizBox';
 function Quiz(){
     const {
         status,
@@ -18,7 +19,7 @@ function Quiz(){
         method: 'GET'
       };
 
-    var URL;
+    const [file, changeFile] = useState(null);
 
     function printDownload(data) {
         switch (data.status) {
@@ -35,9 +36,9 @@ function Quiz(){
         }
     }
 
-    function transcribe(){
-        const transcribedID = 'okpfpovf2o-7f85-4d37-9c86-aa5ae6e1638d';
-        const url = `https://api.assemblyai.com/v2/transcript/okpfpovf2o-7f85-4d37-9c86-aa5ae6e1638d`;
+    function transcribe(test){
+        let id = test;
+        const url = `https://api.assemblyai.com/v2/transcript/${id}`;
         fetch(url, paramsDownload)
         .then(response => response.json())
         .then(data => {
@@ -48,30 +49,28 @@ function Quiz(){
         });        
     }
 
-    const paramsUpload = {
+    function upload(test){
+      const paramsUpload = {
         headers: {
           "authorization": process.env.REACT_APP_ASSEMBLY_API,
           "content-type": "application/json",
         },
-        body: JSON.stringify({"audio_url": "https://cdn.assemblyai.com/upload/433aa2b6-8c7c-4e85-81bf-23ff668f6bce" }),
+        body: JSON.stringify({"audio_url": test }),
         method: "POST"
-      };
-
-      function upload(){
-        console.log(mediaBlobUrl);
+        };
         const url = 'https://api.assemblyai.com/v2/transcript';
-        console.log(paramsUpload);
         fetch(url, paramsUpload)
         .then(response => response.json())
         .then(data => {
           console.log('ID:', data['id']);
+          transcribe(data['id'])
         })
         .catch((error) => {
           console.error('Error:', error);
         });
-      }
+    }
 
-      function blob(){
+    function blob(){
           fetch(mediaBlobUrl)
           .then(res => res.blob())
           .then(blob => {
@@ -91,7 +90,27 @@ function Quiz(){
             });
           })
           
-      }
+    };
+      
+    function transcribeFile(event){
+      console.log(event.target.files[0]);
+      var formData = new FormData();
+      formData.append("file", event.target.files[0]);
+      fetch("/transcribe", {
+        method: "POST",
+        body: formData,
+      })
+      .then((result => {
+        result.text().then(test => {
+          upload(test)
+        })
+      }))
+    }
+
+    function printPlease(){
+      transcribe("okp5y62jda-9775-463e-912a-54a23f42bbf8");
+    }
+    /** 
     return (
         <nav className="quiz">
             <Container>
@@ -101,8 +120,18 @@ function Quiz(){
                 {status}
 
             </Container>
+            <Container>
+              <form>
+                <input type = "file" name ="fileName" onChange={transcribeFile}/>
+              </form>
+            </Container>
         </nav>
     )
+    */
+    
+    return(
+      <QuizBox />
+    );
 }
 
 export default Quiz
