@@ -17,7 +17,10 @@ A Login and Registration page that allows the user to access his stats and quiz 
 
 # How to run it
 1. Clone the repository
-2. Run "npm install" in both the server and client folder 
-3. In server folder, run "npm run dev" 
-4. In client folder, run "npm start"
-5. Go to http://localhost:3000
+2. Go to the root directory of the repository
+3. In a new terminal, Run "npm install" in both the server and client folder
+4. Go to the server folder from the root directory 'cd ./server'
+5. In a new terminal, In server folder, run "npm run dev"
+6. Open a new terminal and go to the client folder 'cd ./client'
+7. In client folder, run "npm start"
+8. Go to http://localhost:3000
