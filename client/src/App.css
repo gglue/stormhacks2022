@@ -58,3 +58,22 @@ body {
 .spoiler:hover {
     color: white;
 }
+
+#loginBtn {
+    margin-top: 1em;
+}
+
+.login {
+    padding: 120px 0;
+}
+
+#registerBtn {
+    margin-top: 1em;
+}
+
+#loginForm, #registerForm {
+    background-color: #41B3A3;
+    padding: 2em;
+    margin: 0 auto;
+    max-width: 30em;
+}
