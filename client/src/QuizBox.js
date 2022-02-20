@@ -11,6 +11,7 @@ function QuizBox(){
     const [correct, setCorrect] = useState(0);
     const [answer, setAnswer] = useState("yes");
     const [finished, setFinished] = useState(false);
+    const [judgement, setJudge] = useState("");
     let questionList = [
         {question: "Write 1",
         answer: "1",
@@ -60,9 +61,10 @@ function QuizBox(){
     function checkAnswer(event){
         if (answer === questionList[questionNumber - 1].answer) {
             setCorrect(correct+1);
+            setJudge("You are correct!");
         }
         else {
-            console.log("wrong")
+            setJudge(`Incorrect, the right answer is ${questionList[questionNumber - 1].answer}`);
         }
         setNumber(questionNumber+1);
         if (questionNumber === 10) {
@@ -71,12 +73,11 @@ function QuizBox(){
     }
 
     function makeQuestions(){
-        console.log("hi")
+        let type = (Math.floor(Math.random() * 2));
     }
 
     useEffect(() => {
         makeQuestions();
-
     }, []);
 
     return(
@@ -85,14 +86,18 @@ function QuizBox(){
                 <Col xs={12} md={5} className = "my-5">
                     <Card>
                         <Card.Body>
-                            <Card.Title><h2>Question {questionNumber}</h2></Card.Title>
+                            <Card.Title className = "text-center"><h2> {finished ? <div>Congratulations!</div> : <div>Question {questionNumber}</div>}</h2></Card.Title>
                                 {questionList[questionNumber - 1].type ? <Card.Text>Translate this morse code to English!</Card.Text> : <Card.Text>Translate this sentence into Morse code!</Card.Text>}
-                                <Card.Text>{questionList[questionNumber - 1].question}</Card.Text>
+                                <Card.Text className = "text-center">{questionList[questionNumber - 1].question}</Card.Text>
                                 <Form>
                                     <Form.Control type="input" disabled={finished} onChange={(event) => setAnswer(event.target.value)} placeholder="Type answer here."/>
-                                    <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
                                 </Form>
                         </Card.Body>
+                        <div className = "text-center">
+                            <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
+                        </div>
+                        <Card.Text className = "text-center"> {judgement}</Card.Text>
+                        <Card.Text className = "text-center"> {finished ? <div>You got {correct} out of 10 questions right!</div> : null}</Card.Text>
                     </Card>
                 </Col>
             </Row>
