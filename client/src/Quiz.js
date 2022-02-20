@@ -1,7 +1,8 @@
-import {Container, Button} from 'react-bootstrap';
+import {Container, Button, Row} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.css";
 import { useReactMediaRecorder } from "react-media-recorder";
 import {useEffect, useState} from 'react';
+
 function Quiz(){
     const {
         status,
@@ -92,17 +93,78 @@ function Quiz(){
           })
           
       }
+
+    /* This section will use a hardcoded question bank to make the quiz for now. */
+
+    const questions = [
+      {
+        question: 'Cat', 
+        answers: [
+          {answerContent: '.', isCorrect: false},
+          {answerContent: '_', isCorrect: false},
+          {answerContent: 'haha', isCorrect: false},
+          {answerContent: '-.-. .- -', isCorrect: true}
+        ]
+      }
+    ]
+
+    const [question, setQuestion] = useState(0);
+    const [displayScore, setDisplayScore] = useState(false);
+    const [score, setScore] = useState(0);
+
+    const onAnswerClick = (isCorrect) => {
+      if (isCorrect) {
+        setScore(score + 1);
+      }
+
+      const nextQuestion = question + 1;
+      if (nextQuestion < questions.length) {
+        setQuestion(nextQuestion);
+      }
+      else {
+        setDisplayScore(true);
+      }
+    };
+
     return (
         <nav className="quiz">
+
             <Container>
                 <Button onClick={startRecording}>start</Button>
                 <Button onClick={stopRecording}>end</Button>
                 {mediaBlobUrl ? blob() : <p>no audio</p>}
                 {status}
-
             </Container>
+
+            {setDisplayScore ? (
+              <Container>
+                <Row>
+                  You scored {score} out of {questions.length}
+                </Row>
+              </Container>
+            ) : ( 
+            <>
+              <Container>
+                <Row>
+                  <span>Question {question + 1}</span>/{questions.length}
+                </Row>
+                <Row>
+                  {questions[question].questionText}
+                </Row>
+              </Container>
+
+              <Container>
+                <Row>
+                  {questions[question].answerContent.map((answerContent) => (
+                      <button onClick={() => onAnswerClick(answerContent.isCorrect)}>{answerContent.answerText}</button>
+                  ))}
+                </Row>
+              </Container>
+            </>)}
         </nav>
     )
+
+
 }
 
 export default Quiz
