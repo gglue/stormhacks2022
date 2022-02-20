@@ -81,3 +81,7 @@ body {
 #quizBtn {
     margin-top: 1em;
 }
+
+#morsebot {
+    z-index: -10;
+}
