@@ -67,7 +67,7 @@ body {
     padding: 120px 0;
 }
 
-#registerBtn {
+#registerBtn, #description {
     margin-top: 1em;
 }
 
@@ -76,4 +76,8 @@ body {
     padding: 2em;
     margin: 0 auto;
     max-width: 30em;
+}
+
+#quizBtn {
+    margin-top: 1em;
 }
