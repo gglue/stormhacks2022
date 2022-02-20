@@ -6,7 +6,7 @@ require("dotenv").config()
 
 // Middleware
 const app = express()
-app.use(cors({origin: "*"}))
+app.use(cors({origin: true, credentials: true}))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())

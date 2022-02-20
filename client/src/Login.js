@@ -4,10 +4,13 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 import "./App.css";
 
 function Login() {
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -28,9 +31,10 @@ function Login() {
         {
             "email" : username,
             "password": password
-        }).then(response => {
+        }, {withCredentials: true}).then(response => {
             if (response.status === 200 || response.status === 201) {
                 console.log(response)
+                navigate("/");
             }
         }).catch(error => {
             console.log(error)
@@ -46,9 +50,10 @@ function Login() {
         {
             "email" : regEmail,
             "password": regPassword
-        }).then(response => {
+        }, {withCredentials: true}).then(response => {
             if (response.status === 200 || response.status === 201) {
                 console.log(response)
+                navigate("/");
             }
         }).catch(error => {
             console.log(error)

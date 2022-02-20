@@ -48,7 +48,12 @@ module.exports.register = async (req, res) => {
         const user = await User.create({email, password})
         console.log(user._id)
         await Profile.create({user: user._id, correct: 0, incorrect: 0, quizzes_done: 0})
-        res.status(201).json({working: true})
+        const token = jwt.sign({user: user._id}, process.env.TOKEN_SECRET)
+        res.cookie("token", token, {
+            httpOnly: true
+        })
+
+        res.status(200).json({working: true})
     }
     catch (error){
         console.log(error.message)
