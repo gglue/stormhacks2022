@@ -5,103 +5,206 @@ import {useEffect, useState} from 'react';
 function QuizBox(){
 
     const [questionNumber, setNumber] = useState(1);
-    // true = translate morse to english, false = translate english to morse
-    const [questionType, setType] = useState(true);
-    const [questions, setQuestion] = useState("Write yes");
     const [correct, setCorrect] = useState(0);
     const [answer, setAnswer] = useState("yes");
     const [finished, setFinished] = useState(false);
     const [judgement, setJudge] = useState("");
-    let questionList = [
-        {question: "Write 1",
-        answer: "1",
-        type: false
-        },
-        {question: "Write 2",
-        answer: "2",
-        type: true
-        },
-        {question: "Write 3",
-        answer: "3",
-        type: false
-        },
-        {question: "Write 4",
-        answer: "4",
-        type: true
-        },
-        {question: "Write 5",
-        answer: "5",
-        type: false
-        },
-        {question: "Write 6",
-        answer: "6",
-        type: true
-        },
-        {question: "Write 7",
-        answer: "7",
-        type: false
-        },
-        {question: "Write 8",
-        answer: "8",
-        type: true
-        },
-        {question: "Write 9",
-        answer: "9",
-        type: false
-        },
-        {question: "Write 10",
-        answer: "10",
-        type: true
-        },
-        {question: "You're at the end of the quiz!",
-        answer: "You're at the end of the quiz!'",
+    const [loading, setLoading] = useState(false);
+    const [questionList, pushList] = useState([
+        
+        {question: "You shouldn't be able to see this",
+        answer: "Inspecting element eh?'",
         type: true
         }
-    ]
+    ]);
+
+    class Question {
+        constructor(question, answer, type){
+            this.question = question;
+            this.answer = answer;
+            this.type = type;
+        }
+    }
     function checkAnswer(event){
-        if (answer === questionList[questionNumber - 1].answer) {
+        if (answer === questionList[questionNumber].answer) {
             setCorrect(correct+1);
             setJudge("You are correct!");
         }
         else {
-            setJudge(`Incorrect, the right answer is ${questionList[questionNumber - 1].answer}`);
+            setJudge(`Incorrect, the right answer is ${questionList[questionNumber].answer}`);
         }
         setNumber(questionNumber+1);
         if (questionNumber === 10) {
             setFinished(true);
         }
+        let inputField = document.getElementById("answerHere");
+        inputField.value = '';
     }
 
     function getWordBank(){
         fetch('/api/quiz')
             .then(response => response.json())
-            .then(data => generateQuestions());
-        let type = (Math.floor(Math.random() * 2));
+            .then(data => {
+                generateQuestions(data);
+                setLoading(true);
+            });
+        
     }
 
+    function letterToMorse(letter){
+        switch (letter)
+        {
+            case 'a':
+                return ".- ";
+            case 'b':
+                return "-... ";
+            case 'c':
+                return "-.-. ";
+            case 'd':
+                return "-.. ";
+            case 'e':
+                return ". ";
+            case 'f':
+                return "..-. ";
+            case 'g':
+                return "--. ";
+            case 'h':
+                return ".... ";
+            case 'i':
+                return ".. ";
+            case 'j':
+                return ".--- ";
+            case 'k':
+                return "-.- ";
+            case 'l':
+                return ".-.. ";
+            case 'm':
+                return "-- ";
+            case 'n':
+                return "-. ";
+            case 'o':
+                return "--- ";
+            case 'p':
+                return ".--. ";
+            case 'q':
+                return "--.- ";
+            case 'r':
+                return ".-. ";
+            case 's':
+                return "... ";
+            case 't':
+                return "- ";
+            case 'u':
+                return "..- ";
+            case 'v':
+                return "...- ";
+            case 'w':
+                return ".-- ";
+            case 'x':
+                return "-..- ";
+            case 'y':
+                return "-.-- ";
+            case 'z':
+                return "--.. ";
+            case '1':
+                return ".---- ";
+            case '2':
+                return "..--- ";
+            case '3':
+                return "...-- ";
+            case '4':
+                return "....- ";
+            case '5':
+                return "..... ";
+            case '6':
+                return "-.... ";
+            case '7':
+                return "--... ";
+            case '8':
+                return "---.. ";
+            case '9':
+                return "----. ";
+            case '0':
+                return "----- ";
+        }
+        return "";
+    }
+
+    function wordToMorse(sentence){
+        let morseSentence = "";
+        for (var x = 0; x < sentence.length; x++){
+            morseSentence += letterToMorse(sentence.charAt(x));
+        }
+        if(morseSentence.substring(morseSentence.length - 1) === ' '){
+            morseSentence = (morseSentence.substring(0, morseSentence.length - 1));
+        }
+        return morseSentence;
+    }
+
+    function generateQuestions(data){
+        for (let x = 0; x < 10; x++) {
+            let tempSentence = "";
+            let tempQuestion = "";
+            let tempAnswer = "";
+            // Create generic sentence
+            tempSentence += data.noun[Math.floor(Math.random() * 20)].word;
+            tempSentence += " "
+            tempSentence += data.verb[Math.floor(Math.random() * 10)].word;
+            tempSentence += " "
+            tempSentence += data.propositon[Math.floor(Math.random() * 10)].word;
+            tempSentence += " "
+            tempSentence += data.noun[Math.floor(Math.random() * 20)].word;
+
+            // Decide if morse -> words or vice versa
+            let type = Math.floor(Math.random() * 2)
+            if (type){
+                tempQuestion = tempSentence;
+                tempAnswer = wordToMorse(tempSentence);
+            }
+            else{
+                tempQuestion = wordToMorse(tempSentence);
+                tempAnswer = tempSentence;
+            }
+            let completedQuestion = new Question(tempQuestion, tempAnswer, type);
+            questionList.push(completedQuestion);
+
+        }
+        questionList.push(
+            {question: "You're at the end of the quiz!",
+            answer: "You're at the end of the quiz!'",
+            type: true
+            })
+        console.log(questionList);
+    }
     useEffect(() => {
         getWordBank();
     }, []);
+
+    function generateCard(){
+        return(<Card className ="bg-transparent">
+            <Card.Body>
+                <Card.Title className = "text-center"><h2> {finished ? <div>Congratulations!</div> : <div>Question {questionNumber}</div>}</h2></Card.Title>
+                    {questionList[questionNumber].type ? <Card.Text>Translate this sentence into Morse code! (Use . and -)</Card.Text> : <Card.Text>Translate this morse code to English! </Card.Text>}
+                    <Card.Text className = "text-center">{questionList[questionNumber].question}</Card.Text>
+                    <Form onSubmit={e => {e.preventDefault();}}>
+                        <Form.Control id="answerHere" type="input" disabled={finished} onChange={(event) => setAnswer(event.target.value)} placeholder="Type answer here."/>
+                    </Form>
+            </Card.Body>
+            <div className = "text-center">
+                <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
+            </div>
+            <Card.Text className = "text-center"> {judgement}</Card.Text>
+            <Card.Text className = "text-center"> {finished ? <div>You got {correct} out of 10 questions right! <br></br> Your stats have been saved.</div> : null}</Card.Text>
+        </Card>)
+    }
 
     return(
         <Container>
             <Row className = "justify-content-center">
                 <Col xs={12} md={5} className = "my-5">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title className = "text-center"><h2> {finished ? <div>Congratulations!</div> : <div>Question {questionNumber}</div>}</h2></Card.Title>
-                                {questionList[questionNumber - 1].type ? <Card.Text>Translate this morse code to English!</Card.Text> : <Card.Text>Translate this sentence into Morse code!</Card.Text>}
-                                <Card.Text className = "text-center">{questionList[questionNumber - 1].question}</Card.Text>
-                                <Form>
-                                    <Form.Control type="input" disabled={finished} onChange={(event) => setAnswer(event.target.value)} placeholder="Type answer here."/>
-                                </Form>
-                        </Card.Body>
-                        <div className = "text-center">
-                            <Button onClick={checkAnswer} disabled={finished}>Submit</Button>
-                        </div>
-                        <Card.Text className = "text-center"> {judgement}</Card.Text>
-                        <Card.Text className = "text-center"> {finished ? <div>You got {correct} out of 10 questions right!</div> : null}</Card.Text>
-                    </Card>
+                    {loading ?
+                        generateCard()
+                        : <div>Loading</div>}
                 </Col>
             </Row>
         </Container>

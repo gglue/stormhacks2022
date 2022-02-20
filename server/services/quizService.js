@@ -8,8 +8,8 @@ module.exports.getQuiz = async (req, res) => {
     try {
         const noun = await Word.find().where({type: "noun"}).limit(20)
         const verb = await Word.find().where({type: "verb"}).limit(10)
-        const preposition = await Word.find().where({type: "preposition"}).limit(10)
-        res.status(201).json({noun, verb, preposition})
+        const propositon = await Word.find().where({type: "propositon"}).limit(10)
+        res.status(201).json({noun, verb, propositon})
     }
     catch(error){
         console.log(error.message)
