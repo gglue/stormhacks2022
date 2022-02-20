@@ -8,7 +8,7 @@ function Quiz(){
         startRecording,
         stopRecording,
         mediaBlobUrl,
-    } = useReactMediaRecorder({audio: true, blobPropertyBag: {type: "audio/wav"}});
+    } = useReactMediaRecorder({audio: true});
 
     const paramsDownload = {
         headers: {
@@ -17,6 +17,8 @@ function Quiz(){
         },
         method: 'GET'
       };
+
+    var URL;
 
     function printDownload(data) {
         switch (data.status) {
@@ -34,8 +36,8 @@ function Quiz(){
     }
 
     function transcribe(){
-        const transcribedID = 'okptpvf1rr-268c-426e-9b58-557aab9ff6e5';
-        const url = `https://api.assemblyai.com/v2/transcript/${transcribedID}`;
+        const transcribedID = 'okpfpovf2o-7f85-4d37-9c86-aa5ae6e1638d';
+        const url = `https://api.assemblyai.com/v2/transcript/okpfpovf2o-7f85-4d37-9c86-aa5ae6e1638d`;
         fetch(url, paramsDownload)
         .then(response => response.json())
         .then(data => {
@@ -51,14 +53,12 @@ function Quiz(){
           "authorization": process.env.REACT_APP_ASSEMBLY_API,
           "content-type": "application/json",
         },
-        body: JSON.stringify({"audio_url": mediaBlobUrl }),
+        body: JSON.stringify({"audio_url": "https://cdn.assemblyai.com/upload/433aa2b6-8c7c-4e85-81bf-23ff668f6bce" }),
         method: "POST"
       };
 
       function upload(){
         console.log(mediaBlobUrl);
-        //var fd = new FormData();
-        //fd.append()
         const url = 'https://api.assemblyai.com/v2/transcript';
         console.log(paramsUpload);
         fetch(url, paramsUpload)
@@ -72,15 +72,23 @@ function Quiz(){
       }
 
       function blob(){
-          console.log(mediaBlobUrl)
           fetch(mediaBlobUrl)
           .then(res => res.blob())
           .then(blob => {
-            /*var fileReader = new FileReader();
-            fileReader.readAsDataURL(blob);
-            console.log(fileReader); */
-            var file = new File([blob], "insert");
-            console.log(URL.createObjectURL(file));
+            var formData = new FormData();
+            formData.append("file", blob);
+            fetch("/transcribe", {
+              method: "POST",
+              body: formData,
+            })
+            .then((result) => {
+              result.text().then(test => {
+                 console.log(test);
+              });
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
           })
           
       }
