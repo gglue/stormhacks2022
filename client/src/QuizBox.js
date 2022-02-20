@@ -181,17 +181,14 @@ function QuizBox(){
 
     function increaseTotal(){
         fetch('/api/quiz/finish', {body: "hi", method: "POST"})
-        .then(response => console.log(response));
     }
     
     function increaseLose(){
         fetch('/api/quiz/wrong', {body: "hi", method: "POST"})
-        .then(response => console.log(response));
     }
 
     function increaseWin(){
         fetch('/api/quiz/correct', {body: "hi", method: "POST"})
-        .then(response => console.log(response));
     }
 
     useEffect(() => {
