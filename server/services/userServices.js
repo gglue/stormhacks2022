@@ -10,8 +10,8 @@ module.exports.getProfile = async (req, res) => {
         const profile = await Profile.findOne({user: mongoose.Types.ObjectId(req.user.user)})
 
         let {correct, incorrect, quizzes_done} = profile
-
-        res.status(201).json({correct, incorrect, quizzes_done})
+        res.status(201).json({"correct":correct, "incorrect": incorrect, "quizzes_done":quizzes_done})
+        
     }
     catch(error){
         console.log(error.message)
