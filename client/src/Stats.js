@@ -15,7 +15,9 @@ function Stats(){
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        document.title = "Statistics!";
         function getData() {
+            // Get user stats
             axios("http://localhost:5000/api/profile", {
                 method: "get",
                 withCredentials: true

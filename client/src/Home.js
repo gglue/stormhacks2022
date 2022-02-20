@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,6 +8,10 @@ import sosAudio from './sound/sos.wav';
 import morsebot from './images/morsebot2.png'
 
 function Home(){
+
+    useEffect(() => {
+        document.title = "Learn Morse Code!";
+    }, []);
 
     const start = (src) => {
         const sound = new Audio(src)

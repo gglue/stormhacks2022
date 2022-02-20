@@ -7,21 +7,23 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-
+import React, { useEffect } from "react";
 import catAudio from './sound/cat.wav';
 import dashAudio from './sound/dash.wav';
 import dotAudio from './sound/dot.wav';
 import hiAudio from './sound/hi.wav';
-import hithereAudio from './sound/hithere.wav';
 
 function Learn(){
+
+    useEffect(() => {
+        document.title = "Educate Yourself!";
+    }, []);
 
     const start = (src) => {
         const sound = new Audio(src)
         sound.play()
     }
 
-    //                        <img src={morsebot} id="morsebot" alt="morsebot"></img>
     return (
         <div className="Learn">
             <Container>
@@ -57,7 +59,6 @@ function Learn(){
                     </Col>
                 </Row>
             </Container>
-
             <Container>
                 <Row>
                     <Col className='text-center'>
@@ -65,17 +66,6 @@ function Learn(){
                         <h2 id="space-content">A Letter in Morse Code is separated by a space. A space between unique letters consists of three units. One unit for spaces between 
                         the same letter. The above says "Hi".</h2>
                         <Button onClick = { () => start(hiAudio)}>Play</Button>
-                    </Col>
-                </Row>
-            </Container>
-
-            <Container>
-                <Row>
-                    <Col className='text-center'>
-                        <h2 id="space">.... .. / - .... . .-. .</h2>
-                        <h2 id="space-content">Words in Morse Code are separated by a slash in translation. A space between words consists of 7 units. The
-                        above says "Hi there".</h2>
-                        <Button onClick = { () => start(hithereAudio)}>Play</Button>
                     </Col>
                 </Row>
             </Container>

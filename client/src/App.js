@@ -1,4 +1,3 @@
-import React, { useEffect, useState} from 'react';
 import {Route, Routes, useLocation} from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 import Home from './Home';
@@ -9,7 +8,6 @@ import Login from './Login';
 
 function App(){
 
-  /*const [backend, setBackEnd] = useState([{}]); */
   const location = useLocation();
 
   return (

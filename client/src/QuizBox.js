@@ -1,6 +1,5 @@
 import {Container, Row, Col, Card, Button, Form} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.css";
-import { useReactMediaRecorder } from "react-media-recorder";
 import {useEffect, useState} from 'react';
 function QuizBox(){
 
@@ -196,7 +195,8 @@ function QuizBox(){
     }
 
     useEffect(() => {
-        getWordBank();;
+        getWordBank();
+        document.title = "Quiz Yourself!";
     }, []);
 
     function generateCard(){

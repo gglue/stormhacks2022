@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -60,10 +60,15 @@ function Login() {
         })
     }
 
+    
     function handleSubmit(event) {
         event.preventDefault();
     }
+    
 
+    useEffect(() => {
+        document.title = "Login!";
+    }, []);
     return (
         <nav className="login">
             <Container>
