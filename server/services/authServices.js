@@ -61,8 +61,12 @@ module.exports.register = async (req, res) => {
     }
 }
 
+module.exports.isAuth = async (req, res) => {
+    res.status(200).json({working: true})
+}
+
 module.exports.logout = (req, res) => {
     console.log("Logout request")
     res.clearCookie("token")
-    res.status(201),json({working: true})
+    res.end()
 }
