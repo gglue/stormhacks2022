@@ -18,6 +18,7 @@ app.set('port', process.env.PORT || 3001);
 app.get("/api/test", (req, res) => {res.status(200).json({"working" : true})})
 app.use("/", require("./routes/authRoutes"))
 app.use("/", require("./routes/userRoutes"))
+app.use("/", require("./routes/quizRoutes"))
 
 // Database
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})

@@ -72,12 +72,15 @@ function QuizBox(){
         }
     }
 
-    function makeQuestions(){
+    function getWordBank(){
+        fetch('/api/quiz')
+            .then(response => response.json())
+            .then(data => generateQuestions());
         let type = (Math.floor(Math.random() * 2));
     }
 
     useEffect(() => {
-        makeQuestions();
+        getWordBank();
     }, []);
 
     return(
