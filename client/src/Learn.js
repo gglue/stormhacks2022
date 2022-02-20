@@ -3,8 +3,8 @@
 function Learn(){
 
     return (
-        <div className="Learn">
-        </div>
+        <nav className="learn">
+        </nav>
     )
 }
 

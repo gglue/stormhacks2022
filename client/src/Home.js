@@ -3,8 +3,9 @@
 function Home(){
 
     return (
-        <div className="Home">
-        </div>
+        <nav className="home">
+            Hello World!
+        </nav>
     )
 }
 
