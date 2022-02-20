@@ -67,7 +67,7 @@ body {
     padding: 120px 0;
 }
 
-#registerBtn {
+#registerBtn, #description {
     margin-top: 1em;
 }
 
