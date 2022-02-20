@@ -7,14 +7,16 @@ import Stats from './Stats';
 import Login from './Login';
 import Logout from './Logout';
 
+import { AnimatePresence } from "framer-motion";
 function App(){
 
   const location = useLocation();
 
   return (
-      <div className="App">
-        <div className="content">
-          <NavigationBar />
+    <div className="App">
+      <div className="content">
+        <NavigationBar />
+        <AnimatePresence>
           <Routes location = {location} key = {location.key}>
             <Route exact path="/" element ={<Home />} />
             <Route path ="/learn" element ={<Learn />} />
@@ -23,7 +25,7 @@ function App(){
             <Route path = "/login" element ={<Login />} />
             <Route path  = "/logout" element = {<Logout/>} />
           </Routes>
-        </div>
+        </AnimatePresence>
       </div>
   )
 }

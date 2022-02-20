@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import {motion} from 'framer-motion';
 
 function Stats(){
     const [state, setState] = useState({
@@ -11,6 +12,22 @@ function Stats(){
         totalCorrect:0,
         totalIncorrect:0
     })
+
+    const slideIn = {
+        hidden: {
+            y: -1250
+        },
+        visible: {
+            y: 0,
+            transition : {
+                delay : 1.0, type: 'spring', stiffness: 125,
+            }
+        },
+        exit: {
+            y: -1250,
+            transition: {ease: 'easeInOut'}
+        }
+    }
 
     const [loading, setLoading] = useState(false);
 
@@ -40,7 +57,7 @@ function Stats(){
     function makeStats(){
         return(
             <div className="totalStats">
-                <h2 id="quizTotal">Total Quizzes completed: {state.quizTotal}:</h2>
+                <h2 id="quizTotal">Total Quizzes completed: {state.quizTotal}</h2>
                 <h2 id="totalQuestions">Total Questions Answered: {state.totalQuestions}</h2>
                 <h2 id="totalCorrect">Total Correct: {state.totalCorrect}</h2>
                 <h2 id="totalIncorrect">Total Incorrect: {state.totalIncorrect}</h2>
@@ -50,9 +67,11 @@ function Stats(){
     return (
         <nav className="stats">
             <Container>
-                <Row className="text-center">
-                {loading ? makeStats() : <div>Please login to see your stats :)</div>}
-                </Row>
+                <motion.div variants={slideIn} initial = "hidden" animate= "visible" exit="exit">
+                    <Row className="text-center">
+                    {loading ? makeStats() : <div>Please login to see your stats :)</div>}
+                    </Row>
+                </motion.div>
             </Container>
 
         </nav>

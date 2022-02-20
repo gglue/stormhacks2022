@@ -5,9 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-
+import {motion} from 'framer-motion';
 import "./App.css";
-
 function Login() {
     const navigate = useNavigate();
 
@@ -17,6 +16,24 @@ function Login() {
     const [regEmail, regSetEmail] = useState("");
     const [regPassword, regSetPassword] = useState("");
 
+    const slideIn = {
+        hidden: {
+            y: -1250,
+            opacity: 0
+        },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition : {
+                delay : 1.0, type: 'spring', stiffness: 125,
+            }
+        },
+        exit: {
+            y: -1250,
+            opacity: 0,
+            transition: {ease: 'easeInOut'}
+        }
+    }
     function validateLoginForm() {
         return username.length > 0 && password.length > 0;
     }
@@ -71,36 +88,38 @@ function Login() {
     }, []);
     return (
         <nav className="login">
-            <Container>
-                <Row>
-                    <Form id="loginForm">
-                        <Form.Group size="lg" controlId="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control autoFocus type="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group size="lg" controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" value={password} onChange={(e) =>setPassword(e.target.value)}/>
-                        </Form.Group>
-                        <Button id="loginBtn" size="lg" type="submit" disabled={!validateLoginForm()} onClick={login}>Login</Button>
-                    </Form>
-                </Row>
+            <motion.div variants={slideIn} initial = "hidden" animate= "visible" exit="exit">
+                <Container>
+                    <Row>
+                        <Form id="loginForm">
+                            <Form.Group size="lg" controlId="email">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control autoFocus type="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group size="lg" controlId="password">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" value={password} onChange={(e) =>setPassword(e.target.value)}/>
+                            </Form.Group>
+                            <Button id="loginBtn" size="lg" type="submit" disabled={!validateLoginForm()} onClick={login}>Login</Button>
+                        </Form>
+                    </Row>
 
-                <Row>
-                    <Form id="registerForm">
-                        <h6>First time here? Sign up below.</h6>
-                        <Form.Group size="lg" controlId="regEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control autoFocus type="Username" value={regEmail} onChange={(e) => regSetEmail(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group size="lg" controlId="regPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" value={regPassword} onChange={(e) => regSetPassword(e.target.value)}/>
-                        </Form.Group>
-                        <Button id="registerBtn" size="lg" type="submit" disabled={!validateRegisterForm()} onClick={register}>Register</Button>
-                    </Form>
-                </Row>
-            </Container>
+                    <Row>
+                        <Form id="registerForm">
+                            <h6>First time here? Sign up below.</h6>
+                            <Form.Group size="lg" controlId="regEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control autoFocus type="Username" value={regEmail} onChange={(e) => regSetEmail(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group size="lg" controlId="regPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" value={regPassword} onChange={(e) => regSetPassword(e.target.value)}/>
+                            </Form.Group>
+                            <Button id="registerBtn" size="lg" type="submit" disabled={!validateRegisterForm()} onClick={register}>Register</Button>
+                        </Form>
+                    </Row>
+                </Container>
+            </motion.div>
 
         </nav>
     );
