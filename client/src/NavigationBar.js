@@ -7,8 +7,8 @@ function NavigationBar(){
         <nav className="navigationBar">
             <Navbar expand="lg">
                 <Container>
-                    <NavLink exact to ="/" activeClassName="selected" activeStyle={{color: "white", background: "black"}} className ="nav-link"><Navbar.Brand>test.com</Navbar.Brand></NavLink>
-                    <Navbar id="basic-navbar-nav">
+                    <NavLink exact to ="/" activeClassName="selected" activeStyle={{color: "white", background: "black"}} className ="nav-link"><Navbar.Brand>Learn Morse Code!</Navbar.Brand></NavLink>
+                    <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavLink exact to ="/learn" activeClassName="selected" activeStyle={{color: "white", background: "black"}} className ="nav-link">Learn</NavLink>
                             <NavLink exact to ="/quiz" activeClassName="selected" activeStyle={{color: "white", background: "black"}} className ="nav-link">Quiz</NavLink>
