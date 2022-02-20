@@ -1,15 +1,21 @@
 const jwt = require("jsonwebtoken")
 
-exports.cookieServices = (req, res, next) => {
-    const token = req.cookies.token
-
+module.exports.authorization = (req, res, next) => {
     try {
+        const token = req.cookies.token
         const user = jwt.verify(token, process.env.TOKEN_SECRET)
-        req.user = user
-        next()
+
+        if(user){
+            req.user = user
+            next()
+        }
+        else{
+            throw "Invalid Token"
+        }
+        
     }
     catch (error) {
         res.clearCookie("token")
-        res.status(400).json({error: "Session timeout"})
+        res.status(400).json({error: "Session Invalid"})
     } 
 }

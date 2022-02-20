@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const mongoose = require("mongoose")
+const Profile = require("../models/profile")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
@@ -14,7 +14,7 @@ async function compareHashedPassword(password, hash) {
 }
 
 module.exports.login = async (req, res) => {
-    console.log(req.body)
+    console.log("Login Request")
     const {email, password} = req.body
     
     try{
@@ -40,20 +40,22 @@ module.exports.login = async (req, res) => {
 }
 
 module.exports.register = async (req, res) => {
-    console.log(req.body)
+    console.log("Register Request")
     let {email, password} = req.body
     password = await hashPassword(password)
 
     try{
         const user = await User.create({email, password})
+        await Profile.create({user: user._id, correct: 0, incorrect: 0, quizzes_done: 0})
         res.status(201).json({working: true})
     }
     catch (error){
-        res.status(400).json({error: "This user already exists."})
+        res.status(400).json({error: error.message})
     }
 }
 
 module.exports.logout = (req, res) => {
+    console.log("Logout request")
     res.clearCookie("token")
     res.status(201),json({working: true})
 }
