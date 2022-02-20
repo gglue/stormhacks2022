@@ -1,0 +1,60 @@
+/*
+Website Colour Scheme
+#E27D60
+#85DCBA
+#E8A87C
+#C38D9E
+#41B3A3
+*/
+
+body {
+    background-color: #85DCBA !important;
+}
+
+.topHeader {
+    /*background-color: #41B3A3;*/
+    text-align: center;
+}
+
+#title {
+    font-size:3em;
+}
+
+#chart-img {
+    background-color: transparent;
+    margin-bottom: 1em;
+}
+
+#dot-img {
+    width: 3em;
+    display: block;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dash-img {
+    width: 5em;
+    display: block;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dot-content, #dash-content {
+    text-align: center;
+    margin-top: 1em;
+}
+
+#example, #space {
+    font-size: 5em;
+}
+
+.spoiler {
+    color: black;
+    background-color: black;
+}
+
+.spoiler:hover {
+    color: white;
+}

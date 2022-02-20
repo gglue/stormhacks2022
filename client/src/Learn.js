@@ -1,11 +1,85 @@
+import './App.css';
+import chart from './images/morse-chart_grande2.png';
+import dot from './images/morse_dot.png';
+import dash from './images/morse_dash.png';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
+import catAudio from './sound/cat.wav';
+import dashAudio from './sound/dash.wav';
+import dotAudio from './sound/dot.wav';
+import hiAudio from './sound/hi.wav';
+import hithereAudio from './sound/hithere.wav';
 
 function Learn(){
 
+    const start = (src) => {
+        const sound = new Audio(src)
+        sound.play()
+    }
+
     return (
-        <nav className="learn">
-        </nav>
+        <div className="Learn">
+            <Container>
+                <div className="topHeader">
+                    <h1 id="title">How do I use Morse Code?<br></br><small>.... --- .-- / -.. --- / .. / ..- ... . / -- --- .-. ... . / -.-. --- -.. . ..--..</small></h1>
+                    <img src={chart} id="chart-img" alt="chart"></img>
+                </div>
+            </Container>
+            
+            <Container>
+                <Row>
+                    <Col className="text-center">
+                        <img src={dot} id="dot-img" alt="dot"></img>
+                        <h2 id="dot-content">This symbol represents a dot (.). A length of a dot consists of one unit.</h2>
+                        <button onClick = { () => start(dotAudio)}>Play</button>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row>
+                    <Col className='text-center'>
+                        <img src={dash} id="dash-img" alt="dash"></img>
+                        <h2 id="dash-content">This symbol represents a dash (-). A length of a dash consists of 3 units. This makes it 3 times longer than a dot.</h2>
+                        <button onClick = { () => start(dashAudio)}>Play</button>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row>
+                    <Col className='text-center'>
+                        <h2 id="space">.... ..</h2>
+                        <h2 id="space-content">A Letter in Morse Code is separated by a space. A space between unique letters consists of three units. One unit for spaces between 
+                        the same letter. The above says "Hi"</h2>
+                        <button onClick = { () => start(hiAudio)}>Play</button>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row>
+                    <Col className='text-center'>
+                        <h2 id="space">.... .. / - .... . .-. .</h2>
+                        <h2 id="space-content">Words in Morse Code are separated by a slash in translation. A space between words consists of 7 units.</h2>
+                        <button onClick = { () => start(hithereAudio)}>Play</button>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row>
+                    <Col className='text-center'>
+                        <h2 id="example">-.-. .- -</h2>
+                        <h2 id="example-content">Can you guess what this morse code means? Answer: It's <span className="spoiler">Cat</span></h2>
+                        <button onClick = { () => start(catAudio)}>Play</button>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
     )
-}
+}  
 
 export default Learn

@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//Going to use Learn as the main app component for now
+//import App from './App';
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 import {BrowserRouter as Router} from 'react-router-dom';
 import App from './App';
 
